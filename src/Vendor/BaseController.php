@@ -8,18 +8,37 @@
 
 namespace Vendor;
 
-
 abstract class BaseController
 {
     /** @var View $view */
     protected $view;
 
-    public function setView(View $view) {
+    /** @var Request */
+    protected $request;
+
+    public function setView(View $view)
+    {
         $this->view = $view;
     }
 
-    public function getView()
+    public function getView(): View
     {
         return $this->view;
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
     }
 }

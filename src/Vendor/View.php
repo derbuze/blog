@@ -1,17 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Markus
- * Date: 01.02.2018
- * Time: 23:08
- */
 
 namespace Vendor;
 
+use Exceptions\NotFoundException;
 
 class View
 {
-    protected $path, $controller, $action;
+    /** @var string */
+    protected $path;
+
+    /** @var string */
+    protected $action;
+
+    /** @var string */
+    protected $controller;
 
     /** @var array $vars */
     private $vars;
@@ -23,9 +25,13 @@ class View
         $this->action = $actionName;
     }
 
+    /**
+     * @throws NotFoundException
+     */
     public function render()
     {
-        $fileName = $this->path . DIRECTORY_SEPARATOR . $this->controller . DIRECTORY_SEPARATOR . $this->action . '.php';
+        $fileName = $this->path . DIRECTORY_SEPARATOR . ucfirst($this->controller) .
+            DIRECTORY_SEPARATOR . $this->action . '.php';
 
         if (!file_exists($fileName)) {
             throw new NotFoundException();
@@ -38,6 +44,9 @@ class View
         include $fileName;
     }
 
+    /**
+     * @param array $vars
+     */
     public function setVars(array $vars)
     {
         foreach ($vars as $key => $value) {

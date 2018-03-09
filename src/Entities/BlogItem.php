@@ -11,7 +11,7 @@ namespace Entities;
 class BlogItem
 {
 
-    /** @var string $id */
+    /** @var int $id */
     private $id;
 
     /** @var string $subject */
@@ -24,17 +24,17 @@ class BlogItem
     private $author;
 
     /**
-     * @return string
+     * @return int|null
      */
-    public function getId(): string
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param string $id
+     * @param int $id
      */
-    public function setId(string $id): void
+    public function setId(int $id)
     {
         $this->id = $id;
     }
@@ -50,7 +50,7 @@ class BlogItem
     /**
      * @param string $subject
      */
-    public function setSubject(string $subject): void
+    public function setSubject(string $subject)
     {
         $this->subject = $subject;
     }
@@ -66,7 +66,7 @@ class BlogItem
     /**
      * @param string $content
      */
-    public function setContent(string $content): void
+    public function setContent(string $content)
     {
         $this->content = $content;
     }
@@ -82,10 +82,8 @@ class BlogItem
     /**
      * @param Author $author
      */
-    public function setAuthor(Author $author): void
+    public function setAuthor(Author $author)
     {
         $this->author = $author;
     }
-
-
 }

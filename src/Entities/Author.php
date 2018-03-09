@@ -1,18 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Markus
- * Date: 01.02.2018
- * Time: 20:45
- */
 
 namespace Entities;
 
+use InvalidArgumentException;
 
 class Author
 {
 
-    /** @var string */
+    /** @var int */
     private $id;
 
     /** @var string $firstName */
@@ -25,17 +20,17 @@ class Author
     private $email;
 
     /**
-     * @return string
+     * @return int
      */
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param string $id
+     * @param int $id
      */
-    public function setId(string $id): void
+    public function setId(int $id)
     {
         $this->id = $id;
     }
@@ -51,7 +46,7 @@ class Author
     /**
      * @param string $firstName
      */
-    public function setFirstName(string $firstName): void
+    public function setFirstName(string $firstName)
     {
         $this->firstName = $firstName;
     }
@@ -67,7 +62,7 @@ class Author
     /**
      * @param string $lastName
      */
-    public function setLastName(string $lastName): void
+    public function setLastName(string $lastName)
     {
         $this->lastName = $lastName;
     }
@@ -83,9 +78,21 @@ class Author
     /**
      * @param string $email
      */
-    public function setEmail(string $email): void
+    public function setEmail(string $email)
     {
+        $this->ensureIsValidEmail($email);
         $this->email = $email;
     }
 
+    /**
+     * @param string $email
+     */
+    private function ensureIsValidEmail(string $email)
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidArgumentException(
+                sprintf('"%s" is not a valid email address', $email)
+            );
+        }
+    }
 }
